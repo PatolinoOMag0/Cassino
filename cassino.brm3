@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Modelo>
+  <Entidades>
+    <!-- Entidade Jogador -->
+    <Entidade id="1" nome="Jogador" posX="100" posY="100">
+      <Atributos>
+        <Atributo nome="Id_Jogador" tipo="integer" chave="true" obrigatorio="true" />
+        <Atributo nome="Nome" tipo="varchar" obrigatorio="true" />
+        <Atributo nome="Email" tipo="varchar" obrigatorio="true" unico="true" />
+        <Atributo nome="Data_Nascimento" tipo="date" obrigatorio="false" />
+        <Atributo nome="Data_Cadastro" tipo="datetime" obrigatorio="true" />
+      </Atributos>
+    </Entidade>
+
+    <!-- Entidade Carteira -->
+    <Entidade id="2" nome="Carteira" posX="300" posY="100">
+      <Atributos>
+        <Atributo nome="Id_Carteira" tipo="integer" chave="true" obrigatorio="true" />
+        <Atributo nome="Saldo" tipo="float" obrigatorio="true" />
+        <Atributo nome="Data_Atualizacao" tipo="datetime" obrigatorio="true" />
+      </Atributos>
+    </Entidade>
+
+    <!-- Entidade Jogo -->
+    <Entidade id="3" nome="Jogo" posX="100" posY="300">
+      <Atributos>
+        <Atributo nome="Id_Jogo" tipo="integer" chave="true" obrigatorio="true" />
+        <Atributo nome="Nome" tipo="varchar" obrigatorio="true" />
+        <Atributo nome="Tipo" tipo="varchar" obrigatorio="true" />
+        <Atributo nome="Valor_Minimo_Aposta" tipo="float" obrigatorio="true" />
+      </Atributos>
+    </Entidade>
+
+    <!-- Entidade Aposta -->
+    <Entidade id="4" nome="Aposta" posX="300" posY="300">
+      <Atributos>
+        <Atributo nome="Id_Aposta" tipo="integer" chave="true" obrigatorio="true" />
+        <Atributo nome="Valor_Aposta" tipo="float" obrigatorio="true" />
+        <Atributo nome="Data_Aposta" tipo="datetime" obrigatorio="true" />
+        <Atributo nome="Resultado" tipo="varchar" obrigatorio="false" />
+        <Atributo nome="Ganho" tipo="float" obrigatorio="false" />
+      </Atributos>
+    </Entidade>
+
+    <!-- Entidade Transação -->
+    <Entidade id="5" nome="Transação" posX="500" posY="300">
+      <Atributos>
+        <Atributo nome="Id_Transacao" tipo="integer" chave="true" obrigatorio="true" />
+        <Atributo nome="Tipo" tipo="varchar" obrigatorio="true" />
+        <Atributo nome="Valor" tipo="float" obrigatorio="true" />
+        <Atributo nome="Data_Transacao" tipo="datetime" obrigatorio="true" />
+        <Atributo nome="Status" tipo="varchar" obrigatorio="true" />
+      </Atributos>
+    </Entidade>
+  </Entidades>
+
+  <Relacionamentos>
+    <!-- Relacionamento Jogador-Carteira (1:1) -->
+    <Relacionamento id="1" nome="Possui">
+      <Participante entidade="1" cardinalidade="1" />
+      <Participante entidade="2" cardinalidade="1" />
+    </Relacionamento>
+
+    <!-- Relacionamento Jogador-Aposta (1:N) -->
+    <Relacionamento id="2" nome="Realiza">
+      <Participante entidade="1" cardinalidade="1" />
+      <Participante entidade="4" cardinalidade="N" />
+    </Relacionamento>
+
+    <!-- Relacionamento Jogo-Aposta (1:N) -->
+    <Relacionamento id="3" nome="Envolve">
+      <Participante entidade="3" cardinalidade="1" />
+      <Participante entidade="4" cardinalidade="N" />
+    </Relacionamento>
+
+    <!-- Relacionamento Jogador-Transação (1:N) -->
+    <Relacionamento id="4" nome="Efetua">
+      <Participante entidade="1" cardinalidade="1" />
+      <Participante entidade="5" cardinalidade="N" />
+    </Relacionamento>
+
+    <!-- Relacionamento Carteira-Transação (1:N) -->
+    <Relacionamento id="5" nome="Registra">
+      <Participante entidade="2" cardinalidade="1" />
+      <Participante entidade="5" cardinalidade="N" />
+    </Relacionamento>
+  </Relacionamentos>
+</Modelo>
